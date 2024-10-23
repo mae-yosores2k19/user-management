@@ -1,8 +1,7 @@
 export interface IPerson {
-  firstname: string;
-  lastname: string;
+  fullname: string;
   email: string;
-  phone: string;
+  phoneNumber: string;
   presentAddress: string;
   permanentAddress: string;
 }

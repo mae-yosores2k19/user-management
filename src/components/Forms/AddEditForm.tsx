@@ -1,10 +1,12 @@
+import { Form } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
 export function AddEditForm() {
   return (
-    <div className="border border-black my-10 mx-40 p-10 rounded max-w-xl">
+    <Form>
+      {/* className="border border-black my-10 mx-40 p-10 rounded max-w-xl" */}
       <form action="">
         <div className="flex w-full flex-col gap-6 items-center">
           <div className="flex flex-row w-full gap-4">
@@ -109,6 +111,6 @@ export function AddEditForm() {
           </Button>
         </div>
       </form>
-    </div>
+    </Form>
   );
 }
