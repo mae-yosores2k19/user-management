@@ -14,7 +14,7 @@ const personSchema = new Schema<IPersonModel>({
 
 // validation schema
 export const profileSchema = z.object({
-  id: z.string().optional(),
+  _id: z.string().optional(),
   fullname: z.string(),
   email: z.string().email(),
   phoneNumber: z.string(),

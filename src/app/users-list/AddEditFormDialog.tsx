@@ -1,3 +1,4 @@
+"useClient";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,24 +20,39 @@ import {
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import useProfileForm from "./hooks/useProfileForm";
+import { PersonalProfile } from "@/model";
+import { useEffect } from "react";
 
 interface AddEditFormDialogProps {
   showDialog: boolean;
   setShowDialog: (open: boolean) => void;
+  existingProfile?: PersonalProfile | null;
 }
 
 export function AddEditFormDialog({
   showDialog,
   setShowDialog,
+  existingProfile,
 }: AddEditFormDialogProps) {
   const { form, onSubmit } = useProfileForm();
 
+  useEffect(() => {
+    form.reset(
+      existingProfile || {
+        fullname: "",
+        email: "",
+        phoneNumber: "",
+        presentAddress: "",
+        permanentAddress: "",
+      }
+    );
+  }, [existingProfile, form]);
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogContent className="w-full md:max-w-2xl bg-white px-10">
         <DialogHeader>
           <DialogTitle className="text-[#4875B8] text-start">
-            Add User
+            {existingProfile ? "Edit User" : "Add User"}
           </DialogTitle>
         </DialogHeader>
         <Separator />
@@ -204,7 +220,7 @@ export function AddEditFormDialog({
                     size="lg"
                     className=" bg-[#4875B8] font-semibold"
                   >
-                    Create
+                    {existingProfile ? "Update" : "Create"}
                   </Button>
                 </DialogClose>
               </div>
