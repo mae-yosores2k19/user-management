@@ -32,10 +32,9 @@ export default function useProfileForm(existingProfile?: PersonalProfile) {
       }
 
       if (savedProfile) {
-        // Fetch and set all user profiles after saving
-        const { users } = await getAllUsersProfile(); // Assuming this returns { users: [...] }
-        setProfiles(users); // Update the profiles in the store
-        form.reset(); // Reset form after saving
+        const { users } = await getAllUsersProfile();
+        setProfiles(users);
+        form.reset();
       }
     } catch (error) {
       console.error("Error saving profile:", error);
@@ -49,23 +48,3 @@ export default function useProfileForm(existingProfile?: PersonalProfile) {
 
   return { form, onSubmit };
 }
-// const form = useForm<PersonalProfile>({
-//   resolver: zodResolver(profileSchema),
-//   mode: "onSubmit",
-// });
-
-// const handleSaveProfile = async (params: PersonalProfile) => {
-//   try {
-//     const savedProfile = await createUserProfile(params);
-
-//     setProfile(savedProfile);
-//     console.log("Profile saved successfully!", savedProfile);
-//   } catch (error) {
-//     console.error("Error saving profile:", error);
-//   }
-// };
-// const onSubmit = form.handleSubmit((data) => {
-//   handleSaveProfile(data);
-// });
-
-// return { form, onSubmit };
