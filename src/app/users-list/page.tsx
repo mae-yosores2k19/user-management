@@ -1,3 +1,4 @@
+"use client";
 import { UserTable } from "@/components/Table/UserTable";
 import { UsersList } from "./UsersList";
 

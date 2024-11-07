@@ -32,7 +32,10 @@ export function RegisterForm({ onToggleForm }: RegisterFormProps) {
   };
   return (
     <Form {...form}>
-      <form className="space-y-4 w-full md:w-96" onSubmit={onSubmit}>
+      <form
+        className="space-y-4 w-full md:w-96 container mx-auto px-6"
+        onSubmit={onSubmit}
+      >
         <div className="flex w-full flex-col gap-3 text-start md:flex-row">
           <FormField
             control={form.control}
