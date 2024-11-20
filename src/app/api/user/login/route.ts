@@ -4,7 +4,6 @@ import Account from "@/model/accountModel";
 import connectMongoDB from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-// import { registerParamsSchema } from "@/model/userModel";
 
 export const POST = async (req: NextRequest) => {
   const { email, password } = await req.json();
@@ -14,11 +13,6 @@ export const POST = async (req: NextRequest) => {
     }
     await connectMongoDB();
     const existingUser = await Account.findOne({ email });
-    console.log(
-      "%c 👨‍👩‍👧‍👦: POST -> existingUser ",
-      "font-size:16px;background-color:#a80c53;color:white;",
-      existingUser
-    );
     if (!existingUser) {
       return NextResponse.json({
         msg: "Incorrect Credentials! Please try again",
@@ -26,11 +20,6 @@ export const POST = async (req: NextRequest) => {
       });
     }
     const isMatch = await bcrypt.compare(password, existingUser.password);
-    console.log(
-      "%c ⏪: POST -> isMatch ",
-      "font-size:16px;background-color:#2c9d03;color:white;",
-      isMatch
-    );
     if (!isMatch) {
       return NextResponse.json({
         msg: "Incorrect Credentials! Please try again",
@@ -38,7 +27,7 @@ export const POST = async (req: NextRequest) => {
       });
     }
 
-    const token = jwt.sign({ user: existingUser }, "jessamae", {
+    const token = jwt.sign({ user: existingUser }, "jmhy_exercise", {
       expiresIn: "12h",
     });
 

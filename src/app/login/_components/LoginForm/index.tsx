@@ -11,12 +11,16 @@ import { Input } from "@/components/ui/input";
 import useLoginForm from "./hooks/useLoginForm";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type LoginFormProps = {
   onToggleForm: () => void;
 };
 export function LoginForm({ onToggleForm }: LoginFormProps) {
+  const router = useRouter();
+  const session = useSession();
   const { form, onSubmit } = useLoginForm();
 
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
@@ -24,6 +28,12 @@ export function LoginForm({ onToggleForm }: LoginFormProps) {
   const togglePasswordEye = () => {
     setPasswordVisible(!passwordVisible);
   };
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      router.replace("/users-list");
+    }
+  }, [session, router]);
   return (
     <Form {...form}>
       <form onSubmit={onSubmit} className="space-y-6 w-full md:w-96">

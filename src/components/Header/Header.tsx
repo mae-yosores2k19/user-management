@@ -3,11 +3,25 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Icons";
 import { useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 export const Header = () => {
   const router = useRouter();
-  // Note: need to implement signout function from next-auth no need for router
-  const handleSignout = () => router.back();
+  const { data: session } = useSession();
+  console.log(
+    "%c 🚧: Header -> session ",
+    "font-size:16px;background-color:#b5c260;color:white;",
+    session
+  );
+  const handleSignOut = async () => {
+    await signOut({ redirect: false });
+    toast.success("You have been logged out successfully.", {
+      position: "top-right",
+    });
+    router.replace("/");
+    router.refresh();
+  };
 
   return (
     <header>
@@ -16,7 +30,8 @@ export const Header = () => {
           <Logo />
         </div>
         <div>
-          <Button size="sm" variant="ghost" onClick={handleSignout}>
+          {session && <div>Already authenticated</div>}
+          <Button size="sm" variant="ghost" onClick={handleSignOut}>
             Logout
           </Button>
         </div>

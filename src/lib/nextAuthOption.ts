@@ -1,27 +1,31 @@
-import { getServerSession, type NextAuthOptions } from "next-auth";
+import { getServerSession, NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { login } from "@/app/actions";
 import {
   GetServerSidePropsContext,
   NextApiRequest,
   NextApiResponse,
 } from "next";
-import { login } from "@/app/actions";
 
-export const nextAuthOptions = {
+export const nextAuthOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
   session: {
     strategy: "jwt",
-    // Seconds - How long until an idle session expires and is no longer valid.
     maxAge: 1 * 60 * 60 * 24, // 24 hour
   },
   callbacks: {
     async jwt({ token, user }) {
-      return {
-        ...user,
-        ...token,
-      };
+      if (user) {
+        token = {
+          ...token,
+          user: user,
+          jwt: user,
+        };
+      }
+
+      return token;
     },
     async session({ session, token }) {
       session.user = {
@@ -30,6 +34,7 @@ export const nextAuthOptions = {
       return session;
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -44,10 +49,10 @@ export const nextAuthOptions = {
             email: credentials?.email ?? "",
             password: credentials?.password ?? "",
           });
-          if (!user?.data?.success) {
+          if (!user) {
             return null;
           }
-          return user;
+          return user.token;
         } catch (error) {
           console.error(error);
           throw new Error("Invalid email or password");

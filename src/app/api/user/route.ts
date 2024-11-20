@@ -27,8 +27,6 @@ export const POST = async (req: NextRequest) => {
       firstName: parsedData.firstName,
       lastName: parsedData.lastName,
     });
-    console.log("New User to Save:", newUser);
-
     await newUser.save();
 
     return NextResponse.json(
