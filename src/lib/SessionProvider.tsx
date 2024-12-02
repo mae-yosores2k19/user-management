@@ -1,11 +1,3 @@
-// import { SessionProvider } from "next-auth/react";
-
-// //@typescript-eslint/no-explicit-any
-// export const AuthProvider = ({ children }: any) => {
-//   return <SessionProvider>{children}</SessionProvider>;
-// };
-
-// export default AuthProvider;
 "use client";
 import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
