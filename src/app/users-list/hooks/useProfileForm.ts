@@ -8,6 +8,7 @@ import {
   updateUserProfile,
   getAllUsersProfile,
 } from "@/app/actions/userProfile";
+import { toast } from "sonner";
 export default function useProfileForm(existingProfile?: PersonalProfile) {
   const { setProfiles } = usePersonStore();
   const form = useForm<PersonalProfile>({
@@ -26,9 +27,13 @@ export default function useProfileForm(existingProfile?: PersonalProfile) {
     try {
       let savedProfile;
       if (params._id) {
-        savedProfile = await updateUserProfile(params);
+        const res = await updateUserProfile(params);
+        savedProfile = res.result;
+        toast.success(res.msg, { position: "top-right" });
       } else {
-        savedProfile = await createUserProfile(params);
+        const res = await createUserProfile(params);
+        savedProfile = res.result;
+        toast.success(res.msg, { position: "top-right" });
       }
 
       if (savedProfile) {

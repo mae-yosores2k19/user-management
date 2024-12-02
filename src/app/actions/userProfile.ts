@@ -32,7 +32,8 @@ export const createUserProfile = async (profile: PersonalProfile) => {
     if (!response.ok) {
       throw new Error("Failed to save profile");
     }
-    return response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error("Error during API call:", error);
     throw error;
@@ -50,7 +51,8 @@ export const updateUserProfile = async (profile: PersonalProfile) => {
   if (!response.ok) {
     throw new Error("Failed to update profile");
   }
-  return response.json();
+  const data = await response.json();
+  return data;
 };
 
 export const getUserProfileById = async (id: string) => {

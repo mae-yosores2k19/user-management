@@ -19,15 +19,13 @@ export const POST = async (req: NextRequest) => {
       });
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(parsedData.password, 10);
-    const newUser = new Account({
+    await Account.create({
       email: parsedData.email,
       password: hashedPassword,
       firstName: parsedData.firstName,
       lastName: parsedData.lastName,
     });
-    await newUser.save();
 
     return NextResponse.json(
       { message: "User registered successfully" },

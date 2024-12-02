@@ -4,9 +4,9 @@ export const Logo = (props: IconProps) => {
   return (
     <svg
       version="1.1"
-      viewBox="0 0 2000 418"
-      width="200"
-      height="40"
+      viewBox="0 0 2300 418"
+      width="270"
+      height="50"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >

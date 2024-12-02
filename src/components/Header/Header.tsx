@@ -9,11 +9,6 @@ import { toast } from "sonner";
 export const Header = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  console.log(
-    "%c 🚧: Header -> session ",
-    "font-size:16px;background-color:#b5c260;color:white;",
-    session
-  );
   const handleSignOut = async () => {
     await signOut({ redirect: false });
     toast.success("You have been logged out successfully.", {
@@ -30,10 +25,16 @@ export const Header = () => {
           <Logo />
         </div>
         <div>
-          {session && <div>Already authenticated</div>}
-          <Button size="sm" variant="ghost" onClick={handleSignOut}>
-            Logout
-          </Button>
+          {session && (
+            <Button
+              size="sm"
+              variant="default"
+              onClick={handleSignOut}
+              className="text-white font-semibold text-md shadow-none uppercase  bg-blue-400 hover:bg-blue-500"
+            >
+              Log out
+            </Button>
+          )}
         </div>
       </div>
     </header>

@@ -18,6 +18,7 @@ import {
 import { PersonalProfile } from "@/model/personModel";
 import { PenLine, Trash2 } from "lucide-react/";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 export function UserTable() {
   const { profiles, setProfiles } = usePersonStore();
@@ -51,7 +52,7 @@ export function UserTable() {
     if (!id) return;
     const res = await deleteUser(id);
     if (res.status === 201) {
-      alert("User deleted successfully");
+      toast.success("User deleted successfully", { position: "top-right" });
       fetchUsers();
     } else {
       alert("Error deleting user");
@@ -63,23 +64,23 @@ export function UserTable() {
   }, [setProfiles]);
 
   return (
-    <div className="rounded-lg">
+    <div className="rounded-lg ">
       <Table>
         <TableHeader>
           <TableRow className=" h-16 bg-[#c1d2ec] hover:bg-[#c1d2ec] rounded-t-lg">
-            <TableHead className=" text-[#4875B8] font-extrabold ">
+            <TableHead className=" text-[#4875B8] font-extrabold text-base ">
               Full Name
             </TableHead>
-            <TableHead className="text-[#4875B8] font-extrabold">
+            <TableHead className="text-[#4875B8] font-extrabold text-base">
               Email
             </TableHead>
-            <TableHead className="text-[#4875B8] font-extrabold">
+            <TableHead className="text-[#4875B8] font-extrabold text-base">
               Contact #
             </TableHead>
-            <TableHead className="text-[#4875B8] font-extrabold">
+            <TableHead className="text-[#4875B8] font-extrabold text-base">
               Present Address
             </TableHead>
-            <TableHead className="text-[#4875B8] font-extrabold">
+            <TableHead className="text-[#4875B8] font-extrabold text-base">
               Permanent Address
             </TableHead>
             <TableHead />
